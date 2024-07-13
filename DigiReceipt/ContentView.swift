@@ -11,7 +11,18 @@ struct ContentView: View {
    
 
     var body: some View {
-        Text("Hello World")
+        
+        TabView {
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house")
+                }
+            GroupedReceiptsView()
+                .tabItem {
+                    Image(systemName: "book.pages")
+                }
+        }
+       
     }
 
    
