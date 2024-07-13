@@ -19,9 +19,10 @@ struct ReceiptModel {
     var products: [ProductRowModel]
     var totalAmount: Double
     var paymentMethod: String
+    var category: String?
     
     
-    init(vendor: String, products: [ProductRowModel], paymentMethod: String){
+    init(vendor: String, products: [ProductRowModel], paymentMethod: String, category: String){
         
         let total = products.reduce(0) { sum, product in
             sum + product.price
@@ -30,6 +31,7 @@ struct ReceiptModel {
         self.vendor = vendor
         self.totalAmount = total
         self.paymentMethod = paymentMethod
+        self.category = category
     }
     
     
