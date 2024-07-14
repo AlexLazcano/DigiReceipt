@@ -12,7 +12,7 @@ struct ProductRowModel {
     var price: Double
 }
 
-struct ReceiptModel {
+struct ReceiptModel: Identifiable, Hashable {
     var id = UUID()
     var vendor: String
     var date: Date = .now
@@ -34,6 +34,13 @@ struct ReceiptModel {
         self.category = category
     }
     
+    static func == (lhs: ReceiptModel, rhs: ReceiptModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     
     
 }

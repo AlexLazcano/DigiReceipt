@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-   
-
+    
+    
     var body: some View {
         
         TabView {
@@ -17,15 +17,15 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "house")
                 }
-            GroupedReceiptsView()
+            ReceiptsCollectionsListView()
                 .tabItem {
                     Image(systemName: "book.pages")
                 }
         }
-       
+        
     }
-
-   
+    
+    
 }
 
 #Preview {

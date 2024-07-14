@@ -1,5 +1,5 @@
 //
-//  ReceiptView.swift
+//  ReceiptDetailView.swift
 //  DigiReceipt
 //
 //  Created by Alex Lazcano on 2024-07-11.
@@ -8,8 +8,8 @@
 import SwiftUI
 import Combine
 
-struct ReceiptView: View {
-    @ObservedObject var viewModel: ReceiptViewModel
+struct ReceiptDetailView: View {
+    var receipt: ReceiptModel
     
     var body: some View {
         
@@ -20,7 +20,7 @@ struct ReceiptView: View {
             
             GroupBox {
                 List {
-                    ForEach(viewModel.receipt.products, id: \.name) { product in
+                    ForEach(receipt.products, id: \.name) { product in
                         ProductListRow(name: product.name, price: product.price)
                             .swipeActions {
                                 Button {
@@ -52,23 +52,23 @@ struct ReceiptView: View {
                         .font(.title)
                         .bold()
                     Spacer()
-                    Text("\(format_currency(amount: viewModel.receipt.totalAmount))")
+                    Text("\(format_currency(amount: receipt.totalAmount))")
                         .font(.title)
                         .bold()
                 }
                 
-                Text("\(viewModel.receipt.paymentMethod)")
+                Text("\(receipt.paymentMethod)")
                     .font(.headline)
                     .padding()
                 
                 Spacer()
             } label: {
                 HStack(alignment: .center) {
-                    Text(viewModel.receipt.date, style: .date)
+                    Text(receipt.date, style: .date)
                         .bold()
                         .font(.callout)
                     Spacer()
-                    if let category = viewModel.receipt.category {
+                    if let category = receipt.category {
                        
                         Text(category)
                             .padding(.horizontal, 20)
@@ -79,7 +79,7 @@ struct ReceiptView: View {
                 }
                
                 
-                Text(viewModel.receipt.vendor)
+                Text(receipt.vendor)
                     .font(.largeTitle)
                     .bold()
                 
@@ -91,15 +91,15 @@ struct ReceiptView: View {
     }
 }
 
-#Preview {
-    
-    let exampleReceipt = ReceiptModel(vendor: "Ikea", products: [
-        ProductRowModel(name: "Chair", price: 400),
-        ProductRowModel(name: "Bed", price: 200)
-    ], paymentMethod: "Visa", category: "Home 🏡")
-    return ReceiptView(viewModel: ReceiptViewModel(receipt: exampleReceipt))
-    
-}
+//#Preview {
+//    
+//    let exampleReceipt = ReceiptModel(vendor: "Ikea", products: [
+//        ProductRowModel(name: "Chair", price: 400),
+//        ProductRowModel(name: "Bed", price: 200)
+//    ], paymentMethod: "Visa", category: "Home 🏡")
+//    return ReceiptDetailView(viewModel: ReceiptViewModel(receipt: exampleReceipt))
+//    
+//}
 
 struct ProductListRow: View {
     let name: String
