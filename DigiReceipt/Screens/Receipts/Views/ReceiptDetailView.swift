@@ -10,7 +10,6 @@ import Combine
 
 struct ReceiptDetailView: View {
     var receipt: ReceiptModel
-    
     var body: some View {
         
         ZStack {
@@ -32,6 +31,7 @@ struct ReceiptDetailView: View {
                             }
                             
                     }
+                    
                     .listRowBackground(Rectangle()
                         .fill(.white.opacity(0))
                         .cornerRadius(12)

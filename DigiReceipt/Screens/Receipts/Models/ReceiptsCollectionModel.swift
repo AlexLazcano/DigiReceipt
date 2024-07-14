@@ -12,6 +12,7 @@ struct ReceiptsCollectionModel: Identifiable, Hashable  {
     var id = UUID()
     var collection_name: String
     var receipts: [ReceiptModel]
+    var expanded: Bool = true
     
     static func == (lhs: ReceiptsCollectionModel, rhs: ReceiptsCollectionModel) -> Bool {
         return lhs.id == rhs.id

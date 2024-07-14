@@ -20,12 +20,12 @@ import Observation
             self.loadFakeData()
         }
     }
-
+    
     
     init(recieptCollections: [ReceiptModel]){
         self.receiptsCollections = receiptsCollections
     }
-
+    
     
     func loadFakeData() {
         
@@ -36,8 +36,19 @@ import Observation
             
             return ReceiptModel(vendor: "Vendor \(index)", products: products, paymentMethod: "Visa", category: "Food")
         }
-        let receiptsCollections = [ReceiptsCollectionModel(collection_name: "July 2024", receipts: receipts)]
+        let receiptsCollections = [ReceiptsCollectionModel(collection_name: "July 2024", receipts: receipts), ReceiptsCollectionModel(collection_name: "August 2024", receipts: receipts)]
         
         self.receiptsCollections = receiptsCollections
+    }
+    enum AnimationID {
+        case vendor
+        
+        var animID: String {
+            switch self {
+            case .vendor:
+                return "vendor"
+                
+            }
+        }
     }
 }
