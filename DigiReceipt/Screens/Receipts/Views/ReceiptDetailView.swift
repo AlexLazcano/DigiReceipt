@@ -10,6 +10,10 @@ import Combine
 
 struct ReceiptDetailView: View {
     var receipt: ReceiptModel
+    let namespace: Namespace.ID
+    var onClose: () -> Void
+    
+    @State private var offset = CGSize.zero
     var body: some View {
         
         ZStack {
@@ -27,9 +31,9 @@ struct ReceiptDetailView: View {
                                 } label: {
                                     Label("Delete", systemImage: "trash.circle.fill")
                                 }
-                
+                                
                             }
-                            
+                        
                     }
                     
                     .listRowBackground(Rectangle()
@@ -38,7 +42,7 @@ struct ReceiptDetailView: View {
                     )
                     .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     
-
+                    
                     
                 }
                 .listRowSpacing(10)
@@ -62,6 +66,29 @@ struct ReceiptDetailView: View {
                     .padding()
                 
                 Spacer()
+                
+                Text("\(offset.width)")
+                    .frame(maxWidth: .infinity)
+                    .background(Rectangle())
+                    .gesture(DragGesture()
+                        .onChanged { gesture in
+                            offset = gesture.translation
+                        }
+                        .onEnded { _ in
+                            if(abs(offset.width) > 100) {
+                                onClose()
+                                offset = .zero
+                            } else {
+                                offset = .zero
+                            }
+                            
+                        }
+                    )
+                    
+                    
+                
+                
+                
             } label: {
                 HStack(alignment: .center) {
                     Text(receipt.date, style: .date)
@@ -69,7 +96,7 @@ struct ReceiptDetailView: View {
                         .font(.callout)
                     Spacer()
                     if let category = receipt.category {
-                       
+                        
                         Text(category)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
@@ -77,7 +104,7 @@ struct ReceiptDetailView: View {
                             .background(.regularMaterial, in: Capsule())
                     }
                 }
-               
+                
                 
                 Text(receipt.vendor)
                     .font(.largeTitle)
@@ -85,21 +112,22 @@ struct ReceiptDetailView: View {
                 
             }
             .groupBoxStyle(.receipt)
+            
         }
         
-        
     }
+        
 }
 
-//#Preview {
-//    
-//    let exampleReceipt = ReceiptModel(vendor: "Ikea", products: [
-//        ProductRowModel(name: "Chair", price: 400),
-//        ProductRowModel(name: "Bed", price: 200)
-//    ], paymentMethod: "Visa", category: "Home 🏡")
-//    return ReceiptDetailView(viewModel: ReceiptViewModel(receipt: exampleReceipt))
-//    
-//}
+#Preview {
+    @Namespace var ns
+    let exampleReceipt = ReceiptModel(vendor: "Ikea", products: [
+        ProductRowModel(name: "Chair", price: 400),
+        ProductRowModel(name: "Bed", price: 200)
+    ], paymentMethod: "Visa", category: "Home 🏡")
+    return ReceiptDetailView(receipt: exampleReceipt, namespace: ns, onClose: {} )
+    
+}
 
 struct ProductListRow: View {
     let name: String

@@ -16,8 +16,10 @@
 		851216B42C40E0340082F7A1 /* ReceiptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851216B32C40E0340082F7A1 /* ReceiptModel.swift */; };
 		851216B62C40E2200082F7A1 /* ReceiptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851216B52C40E2200082F7A1 /* ReceiptViewModel.swift */; };
 		851216B92C40E78F0082F7A1 /* functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851216B82C40E78F0082F7A1 /* functions.swift */; };
+		8575E4BD2C4489F000BAC1C5 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8575E4BC2C4489F000BAC1C5 /* CollectionsView.swift */; };
+		8575E4C32C448A8C00BAC1C5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8575E4C22C448A8C00BAC1C5 /* UserModel.swift */; };
 		85C64D192C42444C00C914F2 /* ReceiptsCollectionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C64D182C42444C00C914F2 /* ReceiptsCollectionsListView.swift */; };
-		85C64D1B2C42477B00C914F2 /* ReceiptsCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C64D1A2C42477B00C914F2 /* ReceiptsCollectionModel.swift */; };
+		85C64D1B2C42477B00C914F2 /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C64D1A2C42477B00C914F2 /* CollectionModel.swift */; };
 		85C64D1E2C42486600C914F2 /* ReceiptsCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C64D1D2C42486600C914F2 /* ReceiptsCollectionViewModel.swift */; };
 		85E22C802C42158100C45A1F /* GroupBoxStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E22C7F2C42158100C45A1F /* GroupBoxStyles.swift */; };
 		85E758D52C423A04002C9A7D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E758D42C423A03002C9A7D /* HomeView.swift */; };
@@ -34,8 +36,10 @@
 		851216B32C40E0340082F7A1 /* ReceiptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptModel.swift; sourceTree = "<group>"; };
 		851216B52C40E2200082F7A1 /* ReceiptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewModel.swift; sourceTree = "<group>"; };
 		851216B82C40E78F0082F7A1 /* functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = functions.swift; sourceTree = "<group>"; };
+		8575E4BC2C4489F000BAC1C5 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
+		8575E4C22C448A8C00BAC1C5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		85C64D182C42444C00C914F2 /* ReceiptsCollectionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptsCollectionsListView.swift; sourceTree = "<group>"; };
-		85C64D1A2C42477B00C914F2 /* ReceiptsCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptsCollectionModel.swift; sourceTree = "<group>"; };
+		85C64D1A2C42477B00C914F2 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		85C64D1D2C42486600C914F2 /* ReceiptsCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptsCollectionViewModel.swift; sourceTree = "<group>"; };
 		85E22C7F2C42158100C45A1F /* GroupBoxStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoxStyles.swift; sourceTree = "<group>"; };
 		85E758D42C423A03002C9A7D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -93,6 +97,8 @@
 		851216AB2C40DEB80082F7A1 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				8575E4C02C448A6F00BAC1C5 /* User */,
+				8575E4BA2C44899400BAC1C5 /* Collections */,
 				85E758D22C4239C4002C9A7D /* Home */,
 				851216AC2C40DEC10082F7A1 /* Receipts */,
 			);
@@ -123,7 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				851216B32C40E0340082F7A1 /* ReceiptModel.swift */,
-				85C64D1A2C42477B00C914F2 /* ReceiptsCollectionModel.swift */,
+				85C64D1A2C42477B00C914F2 /* CollectionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -143,6 +149,54 @@
 				851216B82C40E78F0082F7A1 /* functions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		8575E4BA2C44899400BAC1C5 /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				8575E4BF2C448A5A00BAC1C5 /* Models */,
+				8575E4BE2C448A4300BAC1C5 /* ModelViews */,
+				8575E4BB2C4489BB00BAC1C5 /* Views */,
+			);
+			path = Collections;
+			sourceTree = "<group>";
+		};
+		8575E4BB2C4489BB00BAC1C5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8575E4BC2C4489F000BAC1C5 /* CollectionsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8575E4BE2C448A4300BAC1C5 /* ModelViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ModelViews;
+			sourceTree = "<group>";
+		};
+		8575E4BF2C448A5A00BAC1C5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8575E4C02C448A6F00BAC1C5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8575E4C12C448A8000BAC1C5 /* Model */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		8575E4C12C448A8000BAC1C5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8575E4C22C448A8C00BAC1C5 /* UserModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		85E758D22C4239C4002C9A7D /* Home */ = {
@@ -226,10 +280,12 @@
 				85E758D52C423A04002C9A7D /* HomeView.swift in Sources */,
 				8512169E2C40DC4F0082F7A1 /* ContentView.swift in Sources */,
 				851216A02C40DC4F0082F7A1 /* Item.swift in Sources */,
-				85C64D1B2C42477B00C914F2 /* ReceiptsCollectionModel.swift in Sources */,
+				85C64D1B2C42477B00C914F2 /* CollectionModel.swift in Sources */,
+				8575E4BD2C4489F000BAC1C5 /* CollectionsView.swift in Sources */,
 				85E22C802C42158100C45A1F /* GroupBoxStyles.swift in Sources */,
 				851216B92C40E78F0082F7A1 /* functions.swift in Sources */,
 				85C64D1E2C42486600C914F2 /* ReceiptsCollectionViewModel.swift in Sources */,
+				8575E4C32C448A8C00BAC1C5 /* UserModel.swift in Sources */,
 				8512169C2C40DC4F0082F7A1 /* DigiReceiptApp.swift in Sources */,
 				851216B42C40E0340082F7A1 /* ReceiptModel.swift in Sources */,
 				851216AF2C40DF5A0082F7A1 /* ReceiptDetailView.swift in Sources */,

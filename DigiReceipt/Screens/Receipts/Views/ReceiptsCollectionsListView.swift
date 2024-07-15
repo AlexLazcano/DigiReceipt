@@ -12,35 +12,17 @@ struct ReceiptsCollectionsListView: View {
     @State private var ReceiptsCollectionVM = ReceiptsCollectionViewModel(loadFakeData: true)
     
     var body: some View {
-        NavigationStack {
-            
+        VStack {
             ScrollView {
                 LazyVStack {
                     ForEach($ReceiptsCollectionVM.receiptsCollections, id: \.self.collection_name) { $collection in
-                        
-                        Section(isExpanded: $collection.expanded) {
-                            ReceiptsCollectionsView(collection: collection)
-                            
-                        } header: {
-                            Text("\(collection.collection_name)")
-                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                                .bold()
-                        }
-                        .headerProminence(.increased)
-                        .onTapGesture {
-                            
-                            withAnimation {
-                                collection.expanded.toggle()
-                            }
-                        }
-                        
+                        ReceiptsCollectionsView(collection: collection)
+                            .containerRelativeFrame(.vertical, count: 1, spacing: 0)
                     }
-                    
                 }
-                .padding(.horizontal, 10)
             }
-            
+            .scrollTargetLayout()
+            .scrollTargetBehavior(.paging)
         }
     }
 }
@@ -52,52 +34,72 @@ struct ReceiptsCollectionsListView: View {
 
 struct ReceiptsCollectionsView: View {
     
-    var collection: ReceiptsCollectionModel
-    @State var state = false
+    var collection: CollectionModel
+    @State var indexSelected: Int? = nil
+    @Namespace private var receiptAnim
+    
     
     let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 2)
     
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 10) {
-            ForEach(collection.receipts, id: \.self) { receipt in
-                
-                NavigationLink(value: receipt) {
-                    ReceiptGridView(receipt: receipt)
+        
+        if let indexSelected = indexSelected {
+            ReceiptDetailView(receipt: collection.receipts[indexSelected], namespace: receiptAnim, onClose: onClose)
+            
+        } else {
+            CollectionListView
+                .padding(.horizontal, 10)
+        }
+    }
+    
+    var CollectionListView: some View {
+        VStack {
+            Text("\(collection.collection_name)")
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .bold()
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(collection.receipts.indices, id: \.self) { index in
+                    receiptGridView(receipt: collection.receipts[index])
+                        .onTapGesture {
+                            indexSelected = index
+                        }
                 }
                 
+                .scrollTransition(.animated.threshold(.visible(0.9))) { content, phase in
+                    content
+                        .opacity(phase.isIdentity ? 1 : 0)
+                        .scaleEffect(phase.isIdentity ? 1 : 0.75)
+                        .blur(radius: phase.isIdentity ? 0 : 10)
+                }
             }
-            .scrollTransition(.animated.threshold(.visible(0.9))) { content, phase in
-                content
-                    .opacity(phase.isIdentity ? 1 : 0)
-                    .scaleEffect(phase.isIdentity ? 1 : 0.75)
-                    .blur(radius: phase.isIdentity ? 0 : 10)
-            }
+            
+            .padding(.horizontal, 1)
+            Spacer()
         }
-        .navigationDestination(for: ReceiptModel.self) { receipt in
-            ReceiptDetailView(receipt: receipt)
-        }
-        .padding(.horizontal, 1)
-        
+        .padding(.top, 50)
+        .frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
     }
-}
-
-
-struct ReceiptGridView: View {
-    var receipt: ReceiptModel
-
-    var body: some View {
+    
+    func onClose() -> Void {
+        indexSelected = nil
+    }
+    
+    func receiptGridView(receipt: ReceiptModel) -> some View {
         GroupBox {
             Text("\(format_currency(amount: receipt.totalAmount))")
         } label: {
             Text("\(receipt.vendor)")
-
+            
         }
+        .matchedGeometryEffect(id: receipt, in: receiptAnim)
         .groupBoxStyle(.receiptGrid)
         .foregroundColor(.primary)
         
-        
     }
+    
+    
 }
 
 

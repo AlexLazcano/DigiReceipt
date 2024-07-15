@@ -11,7 +11,7 @@ import Observation
 
 @Observable class ReceiptsCollectionViewModel {
     
-    var receiptsCollections = [ReceiptsCollectionModel]()
+    var receiptsCollections = [CollectionModel]()
     
     init(loadFakeData: Bool = false){
         
@@ -36,7 +36,7 @@ import Observation
             
             return ReceiptModel(vendor: "Vendor \(index)", products: products, paymentMethod: "Visa", category: "Food")
         }
-        let receiptsCollections = [ReceiptsCollectionModel(collection_name: "July 2024", receipts: receipts), ReceiptsCollectionModel(collection_name: "August 2024", receipts: receipts)]
+        let receiptsCollections = [CollectionModel(collection_name: "July 2024", receipts: receipts), CollectionModel(collection_name: "August 2024", receipts: receipts)]
         
         self.receiptsCollections = receiptsCollections
     }
