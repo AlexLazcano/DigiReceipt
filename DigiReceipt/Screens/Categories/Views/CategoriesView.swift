@@ -8,6 +8,35 @@
 import SwiftUI
 import Charts
 
+enum BudgetColor {
+    case low(Color)
+    case medium(Color)
+    case high(Color)
+    
+    var color: Color {
+        switch self {
+        case .low(let color):
+            return color
+        case .medium(let color):
+            return color
+        case .high(let color):
+            return color
+        }
+    }
+    
+    static func color(forLevel level: Double) -> BudgetColor {
+        switch level {
+        case ..<0.33:
+            return .low(.green)
+        case 0.33..<0.66:
+            return .medium(.yellow)
+        default:
+            return .high(.red)
+        }
+    }
+}
+
+
 struct CategoriesView: View {
     @State var categoriesVM = CategoriesViewModel()
     @State var userVM = UserViewModel()
@@ -28,18 +57,10 @@ struct CategoriesView: View {
             }
             Spacer()
             Text("All Receipts")
-                .padding()
-                .background(.blue.gradient, in: RoundedRectangle(cornerRadius: 16))
-                .foregroundStyle(.background)
-                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                .bold()
+                .applyGradientBackgroundStyle()
             
             Text("Add User")
-                .padding()
-                .background(.blue.gradient, in: RoundedRectangle(cornerRadius: 16))
-                .foregroundStyle(.background)
-                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                .bold()
+                .applyGradientBackgroundStyle()
                 .onTapGesture {
                     print("Tapped")
                     userVM.create_user(username: "Jaram")
@@ -73,11 +94,9 @@ struct CategoryView: View {
     
     var body: some View {
         
-        let spentValue = isTapped ?  category.budgetSpent / category.budgetPerMonth : category.budgetSpent
-        let remValue = isTapped ? category.budgetRemaining / category.budgetPerMonth : category.budgetRemaining
         
-        let percentValue = category.budgetRemaining / category.budgetPerMonth
-//        let percent = format_percent(amount: percentValue)
+        let percentValue = category.budgetRemaining / (category.budgetPerMonth ?? 1)
+        //        let percent = format_percent(amount: percentValue)
         return VStack(alignment: .leading) {
             Text("\(category.name)")
                 .font(.title2)
@@ -86,7 +105,7 @@ struct CategoryView: View {
                 .font(.footnote )
             Text("Avg: \(format_currency(amount: category.averagePerMonth))")
                 .font(.subheadline)
-            Text("Budget: \(format_currency(amount: category.budgetPerMonth))")
+            Text("Budget: \(format_currency(amount: category.budgetPerMonth ?? 0))")
                 .font(.headline)
             //            ZStack  {
             //                Chart {
@@ -113,23 +132,28 @@ struct CategoryView: View {
             //
             //            }
             
-            
-            GeometryReader { geo in
-                HStack(spacing: 0) {
-                    Rectangle()
-                        .fill(Color.green.gradient)
-                        .frame(width: geo.size.width * percentValue , height: 10) // Adjusted width
-                    Rectangle()
-                        .fill(Color.red.gradient)
-                        .frame(width: geo.size.width * (1 - percentValue) , height: 10) // Adjusted width
+            if let _ = category.budgetPerMonth {
+                GeometryReader { geo in
+                    HStack(spacing: 0) {
+                        Rectangle()
+                            .fill(BudgetColor.color(forLevel: 1 - percentValue).color.gradient)
+                            .frame(width: geo.size.width * (1 - (percentValue)) , height: 10) // Adjusted width
+                            
+                        Rectangle()
+                            
+                            .fill(Color.gray.gradient)
+                            .frame(width: geo.size.width * (percentValue), height: 10) // Adjusted width
+                            
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
+            
             HStack {
                 Text("Remaining")
                 Spacer()
                 Text("Spent")
-                    
+                
             }
             .font(.caption2)
             

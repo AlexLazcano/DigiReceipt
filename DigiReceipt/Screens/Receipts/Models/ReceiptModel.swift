@@ -7,23 +7,27 @@
 
 import Foundation
 
-struct ProductRowModel {
-    var id = UUID()
+struct ProductModel: Codable {
+    var productId = UUID()
     var name: String
     var price: Double
+    
+    var id: UUID { productId }
 }
 
-struct ReceiptModel: Identifiable, Hashable {
-    var id = UUID()
+struct ReceiptModel: Identifiable, Hashable, Codable {
+    var receiptId = UUID()
     var vendor: String
     var date: Date = .now
-    var products: [ProductRowModel]
+    var products: [ProductModel]
     var totalAmount: Double
     var paymentMethod: String
-    var category: String?
+    var categoryId: String?
+    
+    var id: UUID { receiptId }
     
     
-    init(vendor: String, products: [ProductRowModel], paymentMethod: String, category: String){
+    init(vendor: String, products: [ProductModel], paymentMethod: String, categoryId: String? = nil){
         
         let total = products.reduce(0) { sum, product in
             sum + product.price
@@ -32,7 +36,7 @@ struct ReceiptModel: Identifiable, Hashable {
         self.vendor = vendor
         self.totalAmount = total
         self.paymentMethod = paymentMethod
-        self.category = category
+        self.categoryId = categoryId
     }
     
     static func == (lhs: ReceiptModel, rhs: ReceiptModel) -> Bool {

@@ -11,7 +11,7 @@ struct CategoryModel: Identifiable {
     var id: UUID = UUID()
     var name: String
     var averagePerMonth: Double
-    var budgetPerMonth: Double
+    var budgetPerMonth: Double?
     var budgetSpent: Double
     var budgetRemaining: Double
     

@@ -20,9 +20,9 @@ import Observation
     
     func loadSampleCategories() -> Void {
         self.categories =  [
-            CategoryModel(name: "Food", averagePerMonth: 200.0, budgetPerMonth: 250.0, currentTotalMonth: 180.0),
-            CategoryModel(name: "Transportation", averagePerMonth: 100.0, budgetPerMonth: 120.0, currentTotalMonth: 90.0),
-            CategoryModel(name: "Entertainment", averagePerMonth: 150.0, budgetPerMonth: 200.0, currentTotalMonth: 170.0),
+            CategoryModel(name: "Food", averagePerMonth: 100.0, budgetPerMonth: 100, currentTotalMonth: 25.0),
+            CategoryModel(name: "Transportation", averagePerMonth: 50.0, budgetPerMonth: 100.0, currentTotalMonth: 50.0),
+            CategoryModel(name: "Entertainment", averagePerMonth: 100.0, budgetPerMonth: 100.0, currentTotalMonth: 90.0),
             CategoryModel(name: "Groceries", averagePerMonth: 300.0, budgetPerMonth: 350.0, currentTotalMonth: 280.0)
             
         ]
