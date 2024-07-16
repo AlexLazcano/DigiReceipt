@@ -6,12 +6,12 @@
 //
 
 import Foundation
+import Observation
 
 
-
-class ReceiptViewModel: ObservableObject {
+@Observable class ReceiptViewModel {
     
-    @Published var receipt: ReceiptModel
+    var receipt: ReceiptModel
     
     init(receipt: ReceiptModel){
         self.receipt = receipt

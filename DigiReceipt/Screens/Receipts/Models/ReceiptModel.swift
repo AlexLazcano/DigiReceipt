@@ -8,6 +8,7 @@
 import Foundation
 
 struct ProductRowModel {
+    var id = UUID()
     var name: String
     var price: Double
 }

@@ -19,3 +19,16 @@ func format_currency(amount: Double) -> String{
     
     return formattedAmount
 }
+
+
+func format_percent(amount: Double) -> String{
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .percent
+    formatter.maximumFractionDigits = 2 // Adjust this to the number of decimal places you want
+    
+    let percent = formatter.string(from: NSNumber(value: amount)) ?? "0%"
+    return percent
+    
+    
+}
+
