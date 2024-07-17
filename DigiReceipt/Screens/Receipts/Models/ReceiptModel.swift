@@ -11,8 +11,9 @@ struct ProductModel: Codable {
     var productId = UUID()
     var name: String
     var price: Double
-    
     var id: UUID { productId }
+    var receiptId: UUID?
+    
 }
 
 struct ReceiptModel: Identifiable, Hashable, Codable {
@@ -23,11 +24,12 @@ struct ReceiptModel: Identifiable, Hashable, Codable {
     var totalAmount: Double
     var paymentMethod: String
     var categoryId: String?
+    var userId: UUID?
     
     var id: UUID { receiptId }
     
     
-    init(vendor: String, products: [ProductModel], paymentMethod: String, categoryId: String? = nil){
+    init(vendor: String, products: [ProductModel], paymentMethod: String,  categoryId: String? = nil){
         
         let total = products.reduce(0) { sum, product in
             sum + product.price
@@ -46,6 +48,12 @@ struct ReceiptModel: Identifiable, Hashable, Codable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
+    mutating func setUserId(userId: UUID) {
+        self.userId = userId
+    }
+    
+
     
     
 }

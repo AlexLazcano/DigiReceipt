@@ -121,6 +121,7 @@ struct ReceiptDetailView: View {
 
 #Preview {
     @Namespace var ns
+    let userID = UUID()
     let exampleReceipt = ReceiptModel(vendor: "Ikea", products: [
         ProductModel(name: "Chair", price: 400),
         ProductModel(name: "Bed", price: 200)

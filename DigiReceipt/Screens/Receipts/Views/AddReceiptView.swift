@@ -12,6 +12,8 @@ struct AddReceiptView: View {
     var keychain: KeychainSwift
     @State var isSheet = false
     @State var receiptVM: AddReceiptViewModel = AddReceiptViewModel()
+    @State var loading = false
+    @State var completed = false
     //    @State private var settingsDetent = PresentationDetent.medium
     
     
@@ -28,13 +30,31 @@ struct AddReceiptView: View {
                 .font(.largeTitle)
                 .bold()
                 .padding(.bottom, 30)
-            VStack(alignment: .leading) {
-                Text("Vendor").bold()
-                TextField(text: $receiptVM.vendor) {
-                    Text("Vendor")
-                }.font(.title3)
+            
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Vendor").bold()
+                    TextField(text: $receiptVM.vendor) {
+                        Text("Vendor")
+                    }.font(.title3)
+                    
+                }
                 
+                VStack(alignment: .trailing) {
+                    Text("Payment method").bold()
+                    Picker("Payment Method", selection: $receiptVM.paymentMethod) {
+                                   Text("Credit Card").tag("Credit Card")
+                                   Text("Debit Card").tag("Debit Card")
+                                   Text("PayPal").tag("PayPal")
+                                   Text("Apple Pay").tag("Apple Pay")
+                               }
+                               .pickerStyle(MenuPickerStyle()) // Use
+                }
             }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 20)
+            .background(.thickMaterial, in: RoundedRectangle(cornerRadius: 20))
+            
             
             DatePicker(selection: $receiptVM.date) {
                 Text("Date")
@@ -65,15 +85,17 @@ struct AddReceiptView: View {
                     }
                 Spacer()
                 Button("Save Receipt") {
-//                    let receipt = ReceiptModel(
-//                        vendor: receiptVM.vendor,
-//                        products: receiptVM.products,
-//                        paymentMethod: receiptVM.paymentMethod,
-//                        categoryId: receiptVM.categoryId
-//                    )
-//                    
+                    let receipt = ReceiptModel(
+                        vendor: receiptVM.vendor,
+                        products: receiptVM.products,
+                        paymentMethod: receiptVM.paymentMethod,
+                        categoryId: receiptVM.categoryId
+                    )
+                    print(receipt.products)
+                    
 //                    // Save the new receipt
-//                    ReceiptViewModel.saveReceipt(receipt: receipt)
+                    #warning("TODO: Do completion")
+                    ReceiptViewModel.saveReceipt(newReceipt: receipt, completion: {_ in } )
                     
                     
                 }

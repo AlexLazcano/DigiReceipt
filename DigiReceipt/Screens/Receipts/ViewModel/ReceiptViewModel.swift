@@ -17,7 +17,19 @@ import Observation
         self.receipt = receipt
     }
     
-    static func saveReceipt(receipt: ReceiptModel) {
+    static func saveReceipt(newReceipt: ReceiptModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        var receipt = newReceipt
+        
+        
+        print(receipt)
+        let uuid = UUID(uuidString: "e1c47b81-e3ad-408e-8571-f08ebb8931d4")!
+        // Define the URL for your HTTP request
+        
+        receipt.setUserId(userId: uuid)
+        
+        print("saving")
+        
         
         // Define the URL for your HTTP request
         guard let url = URL(string: "http://localhost:8080/api/receipts") else {
@@ -25,12 +37,31 @@ import Observation
             return
         }
         
+        print(url.absoluteString)
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        let encoder = JSONEncoder()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        encoder.dateEncodingStrategy = .formatted(formatter)
+        
+        do {
+            let jsonData = try encoder.encode(receipt)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                print("Encoded JSON: \(jsonString)")
+            } else {
+                print("Error converting JSON data to string")
+            }
+        } catch {
+            print("Error encoding receipt to JSON: \(error.localizedDescription)")
+        }
+        
         // Encode the receipt to JSON
-        guard let jsonData = try? JSONEncoder().encode(receipt) else {
+        guard let jsonData = try? encoder.encode(receipt) else {
             print("Error encoding receipt to JSON")
             return
         }
@@ -52,16 +83,12 @@ import Observation
             }
             
             print("Response status code: \(httpResponse.statusCode)")
-            
-            // Handle response data if needed
-            if let data = data {
-                if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) {
-                    print("Response JSON: \(responseJSON)")
-                    // Process response JSON here
-                } else {
-                    print("Invalid JSON response")
-                }
-            }
+            if httpResponse.statusCode == 201 {
+                                completion(.success(()))
+                            } else {
+                                completion(.failure(NSError(domain: "HTTP Error", code: httpResponse.statusCode, userInfo: nil)))
+                            }
+           
         }
         task.resume()
     }

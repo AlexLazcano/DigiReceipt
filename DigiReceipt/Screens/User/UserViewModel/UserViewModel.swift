@@ -18,17 +18,16 @@ import KeychainSwift
     
     
     
-    func loadUserDetails() -> Void {
+    func loadUserDetails() -> String? {
         
         let keychain = KeychainSwift()
         
         guard let userId = keychain.get("userId") else {
             
+            return nil
             
-            
-            return
         }
-        
+        return userId
         
     }
     
