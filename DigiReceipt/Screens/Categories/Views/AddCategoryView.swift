@@ -23,6 +23,6 @@ struct AddCategoryView: View {
 #Preview {
     let keychain = KeychainSwift()
     
-    keychain.set("userId", forKey: "e1c47b81-e3ad-408e-8571-f08ebb8931d4")
+    keychain.set("userId", forKey: "1ca0e225-631e-444e-90ae-047dfcc92a97")
     return AddReceiptView(keychain: keychain)
 }

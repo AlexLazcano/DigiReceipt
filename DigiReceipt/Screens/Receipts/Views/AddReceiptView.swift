@@ -29,7 +29,7 @@ struct AddReceiptView: View {
             Text("Receipt")
                 .font(.largeTitle)
                 .bold()
-                .padding(.bottom, 30)
+                .padding(.bottom, 10)
             
             HStack {
                 VStack(alignment: .leading) {
@@ -75,15 +75,6 @@ struct AddReceiptView: View {
             Spacer()
             
             HStack {
-                Image(systemName: "arrowshape.backward")
-                    .font(.largeTitle)
-                    .padding(5)
-                
-                    .background(Color.gray.opacity(0.5), in: RoundedRectangle(cornerRadius: 10))
-                    .onTapGesture {
-                       
-                    }
-                Spacer()
                 Button("Save Receipt") {
                     let receipt = ReceiptModel(
                         vendor: receiptVM.vendor,
@@ -127,7 +118,7 @@ struct AddReceiptView: View {
 #Preview {
     let keychain = KeychainSwift()
     
-    keychain.set("userId", forKey: "e1c47b81-e3ad-408e-8571-f08ebb8931d4")
+    keychain.set("userId", forKey: "1ca0e225-631e-444e-90ae-047dfcc92a97")
     return AddReceiptView(keychain: keychain)
 }
 
@@ -154,18 +145,20 @@ struct AddProductListView: View {
                 }
                 
             } else {
-                ForEach(products, id: \.name) { product in
-                    ProductListRow(name: product.name, price: product.price)
-                        .swipeActions {
-                            Button {
-                                print("Hello")
-                            } label: {
-                                Label("Delete", systemImage: "trash.circle.fill")
+                List {
+                    ForEach(products, id: \.name) { product in
+                        ProductListRow(name: product.name, price: product.price)
+                            .swipeActions {
+                                Button {
+                                    print("Hello")
+                                } label: {
+                                    Label("Delete", systemImage: "trash.circle.fill")
+                                }
                             }
-                        }
-                    
+                        
+                    }
                 }
-                Spacer()
+                .listStyle(.plain)
             }
         
         }
