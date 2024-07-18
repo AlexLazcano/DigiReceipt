@@ -1,5 +1,5 @@
 //
-//  ReceiptListViewModel.swift
+//  ReceiptsListViewModel.swift
 //  DigiReceipt
 //
 //  Created by Alex Lazcano on 2024-07-17.
@@ -8,15 +8,19 @@
 import Foundation
 import Observation
 
-@Observable class ReceiptListViewModel {
-    var receipts: [ReceiptModel]
+@Observable class ReceiptsListViewModel {
+    var receipts: [ReceiptModel] = []
     
     init(receipts: [ReceiptModel]) {
         self.receipts = receipts
     }
-    init() {
-        self.receipts = []
+    init(loadFakeData: Bool = false) {
+        if loadFakeData {
+            self.loadFakeData()
+        }
+        
     }
+    
     
     func getReceiptsByUser(completion: @escaping (Result<[ReceiptModel], Error>) -> Void) {
         
@@ -85,4 +89,19 @@ import Observation
         
         task.resume()
     }
+    
+    func loadFakeData() {
+        
+        let receipts = (1...10).map { index in
+            let products = (1...10).map { index2 in
+                ProductModel(name: "Item \(index2)", price: 1.0 * Double(index2 + index))
+            }
+            
+            return ReceiptModel(vendor: "Vendor \(index)", products: products, paymentMethod: "Visa", categoryId: "Food")
+        }
+        
+        self.receipts = receipts
+    }
+    
+    
 }

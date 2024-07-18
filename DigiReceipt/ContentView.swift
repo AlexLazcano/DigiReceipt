@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @State var receiptsVM = ReceiptsListViewModel();
     
     var body: some View {
         
@@ -17,7 +17,7 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "house")
                 }
-            ReceiptsListView()
+            ReceiptsListView(receiptsVM: receiptsVM)
                 .tabItem {
                     Image(systemName: "book.pages")
                 }

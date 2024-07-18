@@ -91,7 +91,6 @@ struct ReceiptsCollectionsView: View {
             Text("\(format_currency(amount: receipt.totalAmount))")
         } label: {
             Text("\(receipt.vendor)")
-            
         }
         .matchedGeometryEffect(id: receipt, in: receiptAnim)
         .groupBoxStyle(.receiptGrid)

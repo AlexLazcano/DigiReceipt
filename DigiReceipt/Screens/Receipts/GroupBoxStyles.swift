@@ -33,19 +33,14 @@ struct ReceiptGridGroupBoxStyle: GroupBoxStyle {
         VStack(alignment: .leading) {
             configuration.label
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                .font(.title2)
-            
-            configuration.content
-                .font(.title3)
-            
             Spacer()
+            configuration.content
         }
         
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(.ultraThickMaterial)
-                .stroke(Color.gray, lineWidth: 1)
+                .fill(.gray.opacity(0.15))
         )
         
     }

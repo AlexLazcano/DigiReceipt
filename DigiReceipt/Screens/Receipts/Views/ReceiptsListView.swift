@@ -10,12 +10,12 @@ import SwiftUI
 struct ReceiptsListView: View {
     
     @State var indexSelected: Int? = nil
-    @State private var receiptsVM = ReceiptListViewModel()
+    @State var receiptsVM: ReceiptsListViewModel
     @Namespace private var receiptAnim
 
     var collection_name: String = "Recent"
     
-    let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 2)
+    let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 1)
     
     var body: some View {
         
@@ -59,7 +59,6 @@ struct ReceiptsListView: View {
                     }
                     
                 }
-                .padding(1)
                 
             }
             .scrollTargetLayout()
@@ -88,6 +87,7 @@ struct ReceiptsListView: View {
             }
             
         }
+        
     }
     
     
@@ -100,14 +100,38 @@ struct ReceiptsListView: View {
     
     func receiptGridView(receipt: ReceiptModel) -> some View {
         GroupBox {
-            Text("\(format_currency(amount: receipt.totalAmount))")
-                .matchedGeometryEffect(id: "\(receipt)-TotalAmount", in: receiptAnim)
+            HStack {
+                Text("\(receipt.vendor)")
+                    .matchedGeometryEffect(id: "\(receipt)-Vendor", in: receiptAnim)
+                    .font(.title2)
+                    
+                Spacer()
+                Text("\(format_currency(amount: receipt.totalAmount))")
+                    .matchedGeometryEffect(id: "\(receipt)-TotalAmount", in: receiptAnim)
+                    .font(.title3)
+                    
+            }
+            
         } label: {
-            Text("\(receipt.vendor)")
-                .matchedGeometryEffect(id: "\(receipt)-Vendor", in: receiptAnim)
+            HStack {
+                Text("\(receipt.date.formatted(date: .abbreviated, time: .omitted))")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+              
+                Text("\("Food")")
+                    .font(.subheadline)
+                    .bold()
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .foregroundStyle(.thickMaterial)
+                    .background(.red.gradient, in: RoundedRectangle(cornerRadius: 10))
+                    
+            }
+            .padding(.bottom, 5)
             
         }
-        .matchedGeometryEffect(id: "\(receipt)", in: receiptAnim)
+        .matchedGeometryEffect(id: "\(receipt)-Container", in: receiptAnim)
         .groupBoxStyle(.receiptGrid)
         .foregroundColor(.primary)
         
@@ -117,5 +141,7 @@ struct ReceiptsListView: View {
 
 
 #Preview {
-    ReceiptsListView()
+    
+    var receiptsVM = ReceiptsListViewModel(loadFakeData: true)
+    return ReceiptsListView(receiptsVM: receiptsVM)
 }

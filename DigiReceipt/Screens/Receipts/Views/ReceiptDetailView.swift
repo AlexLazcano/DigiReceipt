@@ -76,12 +76,16 @@ struct ReceiptDetailView: View {
                             offset = gesture.translation
                         }
                         .onEnded { _ in
-                            if(abs(offset.width) > 100) {
-                                onClose()
-                                offset = .zero
-                            } else {
-                                offset = .zero
+                            
+                            withAnimation {
+                                if(abs(offset.width) > 100) {
+                                    onClose()
+                                    offset = .zero
+                                } else {
+                                    offset = .zero
+                                }
                             }
+                            
                             
                         }
                     )
@@ -113,7 +117,7 @@ struct ReceiptDetailView: View {
                     .matchedGeometryEffect(id: "\(receipt)-Vendor", in: namespace)
                 
             }
-            .matchedGeometryEffect(id: receipt, in: namespace)
+            .matchedGeometryEffect(id: "\(receipt)-Container", in: namespace)
             .groupBoxStyle(.receipt)
             
         }
