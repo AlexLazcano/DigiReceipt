@@ -19,3 +19,12 @@ enum NetworkError: Error {
 let DATE_FORMAT = "yyyy-MM-dd HH:mm:ss Z"
 let api = "http://localhost:8080"
 let receiptsPath = "/api/receipts"
+
+
+let receiptDecoder: JSONDecoder = {
+    let decoder = JSONDecoder()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = DATE_FORMAT
+    decoder.dateDecodingStrategy = .formatted(dateFormatter)
+    return decoder
+}()

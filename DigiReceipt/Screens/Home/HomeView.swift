@@ -28,18 +28,7 @@ struct HomeView: View {
                         .applyGradientBackgroundStyle()
                         .padding()
                         .onTapGesture {
-                            ReceiptViewModel.getReceiptsByUser { result in
-                                switch result {
-                                case .success(let receipts):
-                                    // Handle successful retrieval of receipts
-                                    print("Received receipts: \(receipts)")
-                                    // Example: Update UI or perform further processing with `receipts` array
-                                case .failure(let error):
-                                    // Handle error
-                                    print("Error fetching receipts: \(error)")
-                                    // Example: Show an error message to the user or log the error
-                                }
-                            }
+                            
                         }
                     
                 }

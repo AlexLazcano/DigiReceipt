@@ -17,7 +17,7 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "house")
                 }
-            ReceiptsCollectionsListView()
+            ReceiptsListView()
                 .tabItem {
                     Image(systemName: "book.pages")
                 }

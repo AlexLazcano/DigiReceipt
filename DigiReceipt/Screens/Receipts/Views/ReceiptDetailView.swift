@@ -59,6 +59,7 @@ struct ReceiptDetailView: View {
                     Text("\(format_currency(amount: receipt.totalAmount))")
                         .font(.title)
                         .bold()
+                        .matchedGeometryEffect(id: "\(receipt)-TotalAmount", in: namespace)
                 }
                 
                 Text("\(receipt.paymentMethod)")
@@ -84,8 +85,8 @@ struct ReceiptDetailView: View {
                             
                         }
                     )
-                    
-                    
+                
+                
                 
                 
                 
@@ -109,14 +110,16 @@ struct ReceiptDetailView: View {
                 Text(receipt.vendor)
                     .font(.largeTitle)
                     .bold()
+                    .matchedGeometryEffect(id: "\(receipt)-Vendor", in: namespace)
                 
             }
+            .matchedGeometryEffect(id: receipt, in: namespace)
             .groupBoxStyle(.receipt)
             
         }
         
     }
-        
+    
 }
 
 #Preview {
