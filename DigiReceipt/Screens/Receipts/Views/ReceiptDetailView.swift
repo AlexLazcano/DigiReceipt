@@ -23,25 +23,7 @@ struct ReceiptDetailView: View {
             
             GroupBox {
                 List {
-                    ForEach(receipt.products, id: \.name) { product in
-                        ProductListRow(name: product.name, price: product.price)
-                            .swipeActions {
-                                Button {
-                                    print("Hello")
-                                } label: {
-                                    Label("Delete", systemImage: "trash.circle.fill")
-                                }
-                                
-                            }
-                        
-                    }
-                    
-                    .listRowBackground(Rectangle()
-                        .fill(.white.opacity(0))
-                        .cornerRadius(12)
-                    )
-                    .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                    
+                  
                     
                     
                 }
@@ -129,10 +111,7 @@ struct ReceiptDetailView: View {
 #Preview {
     @Namespace var ns
     let userID = UUID()
-    let exampleReceipt = ReceiptModel(vendor: "Ikea", products: [
-        ProductModel(name: "Chair", price: 400),
-        ProductModel(name: "Bed", price: 200)
-    ], paymentMethod: "Visa", categoryId: "Home 🏡")
+    let exampleReceipt = ReceiptModel(vendor: "Ikea", paymentMethod: "Visa", categoryId: "Home 🏡", totalAmount: 0)
     return ReceiptDetailView(receipt: exampleReceipt, namespace: ns, onClose: {} )
     
 }

@@ -30,11 +30,9 @@ import Observation
     func loadFakeData() {
         
         let receipts = (1...10).map { index in
-            let products = (1...10).map { index2 in
-                ProductModel(name: "Item \(index2)", price: 1.0 * Double(index2 + index))
-            }
             
-            return ReceiptModel(vendor: "Vendor \(index)", products: products, paymentMethod: "Visa", categoryId: "Food")
+            
+            return ReceiptModel(vendor: "Vendor \(index)", paymentMethod: "Visa", categoryId: "Food", totalAmount: 0.0)
         }
         let receiptsCollections = [CollectionModel(collection_name: "July 2024", receipts: receipts), CollectionModel(collection_name: "August 2024", receipts: receipts)]
         

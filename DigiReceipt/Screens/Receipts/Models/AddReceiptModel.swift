@@ -9,7 +9,7 @@ import Foundation
 struct AddReceiptModel {
     var vendor: String
     var date: Date = .now
-    var products: [ProductModel]
+//    var products: [ProductModel]
     var totalAmount: Double
     var paymentMethod: String
     var categoryId: String?

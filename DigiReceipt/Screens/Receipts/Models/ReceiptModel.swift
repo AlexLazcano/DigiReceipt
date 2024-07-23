@@ -7,21 +7,21 @@
 
 import Foundation
 
-struct ProductModel: Codable {
-    var productId = UUID()
-    var name: String
-    var price: Double
-    var receiptId: UUID?
-    
-    var id: UUID { productId }
-    
-}
+//struct ProductModel: Codable {
+//    var productId = UUID()
+//    var name: String
+//    var price: Double
+//    var receiptId: UUID?
+//    
+//    var id: UUID { productId }
+//    
+//}
 
 struct ReceiptModel: Identifiable, Hashable, Codable {
     var receiptId = UUID()
     var vendor: String
     var date: Date = .now
-    var products: [ProductModel]
+//    var products: [ProductModel]
     var totalAmount: Double = 0.0
     var paymentMethod: String
     var categoryId: String? = nil
@@ -34,9 +34,10 @@ struct ReceiptModel: Identifiable, Hashable, Codable {
         case vendor
         case date
         case paymentMethod
-        case products
+//        case products
         case categoryId
         case userId
+        case totalAmount
     }
     
     static func decoder() -> JSONDecoder {
@@ -62,27 +63,24 @@ struct ReceiptModel: Identifiable, Hashable, Codable {
             }
             date = parsedDate
             
-            products = try container.decode([ProductModel].self, forKey: .products)
+//            products = try container.decode([ProductModel].self, forKey: .products)
             paymentMethod = try container.decode(String.self, forKey: .paymentMethod)
             categoryId = try container.decodeIfPresent(String.self, forKey: .categoryId)
             userId = try container.decodeIfPresent(UUID.self, forKey: .userId)
-            totalAmount = products.reduce(0) { $0 + $1.price }
+//            totalAmount = products.reduce(0) { $0 + $1.price }
+            totalAmount = try container.decode(Double.self, forKey: .totalAmount)
             
         }
 
     
     
     
-    init(vendor: String, products: [ProductModel], paymentMethod: String,  categoryId: String? = nil){
+    init(vendor: String, paymentMethod: String,  categoryId: String? = nil, totalAmount: Double){
         
-        let total = products.reduce(0) { sum, product in
-            sum + product.price
-        }
-        self.products = products
         self.vendor = vendor
-        self.totalAmount = total
         self.paymentMethod = paymentMethod
         self.categoryId = categoryId
+        self.totalAmount = totalAmount
     }
     
     static func == (lhs: ReceiptModel, rhs: ReceiptModel) -> Bool {

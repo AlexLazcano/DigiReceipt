@@ -19,11 +19,6 @@ struct AddReceiptView: View {
     
     var body: some View {
         
-        let total = receiptVM.products.reduce(into: 0) { result, el in
-            if let digit = Double(String(el.price)) {
-                result += digit
-            }
-        }
         
         return VStack  {
             Text("Receipt")
@@ -61,14 +56,18 @@ struct AddReceiptView: View {
                     .bold()
             }
             
-            AddProductListView(products: $receiptVM.products)
             Spacer()
             HStack {
                 Text("Total:")
                     .font(.largeTitle)
                 Spacer()
-                Text("\(format_currency(amount: total))")
-                    .font(.largeTitle)
+                    
+                
+                TextField("Amount", value: $receiptVM.totalAmount, format: .number)
+                               .padding()
+                               .font(.largeTitle)
+                
+                
                 
             }
             
@@ -78,11 +77,10 @@ struct AddReceiptView: View {
                 Button("Save Receipt") {
                     let receipt = ReceiptModel(
                         vendor: receiptVM.vendor,
-                        products: receiptVM.products,
                         paymentMethod: receiptVM.paymentMethod,
-                        categoryId: receiptVM.categoryId
+                        categoryId: receiptVM.categoryId, 
+                        totalAmount: receiptVM.totalAmount
                     )
-                    print(receipt.products)
                     
 //                    // Save the new receipt
                     #warning("TODO: Do completion")
@@ -106,8 +104,6 @@ struct AddReceiptView: View {
         }
         .padding(30)
         .sheet(isPresented: $isSheet) {
-            AddProductView(isSheet: $isSheet, addToListFunc: receiptVM.addProduct)
-                .presentationDetents([.medium])
             
         }
         
@@ -125,41 +121,12 @@ struct AddReceiptView: View {
 
 struct AddProductListView: View {
     
-    @Binding var products: [ProductModel]
+//    @Binding var products: [ProductModel]
     
     var body: some View {
         VStack(alignment: .leading) {
             Text("Items")
                 .bold()
-            
-            
-            if products.isEmpty {
-                ContentUnavailableView {
-                    Image(systemName: "pencil.circle")
-                        .font(.largeTitle)
-                        .foregroundColor(.blue)
-                } description: {
-                    Text("No Items in Receipt")
-                } actions: {
-                    Text("Add item")
-                }
-                
-            } else {
-                List {
-                    ForEach(products, id: \.name) { product in
-                        ProductListRow(name: product.name, price: product.price)
-                            .swipeActions {
-                                Button {
-                                    print("Hello")
-                                } label: {
-                                    Label("Delete", systemImage: "trash.circle.fill")
-                                }
-                            }
-                        
-                    }
-                }
-                .listStyle(.plain)
-            }
         
         }
     }
@@ -167,36 +134,6 @@ struct AddProductListView: View {
 
 
 
-struct AddProductView: View {
-    
-    @State var name = ""
-    @State var priceStr = ""
-    
-    @Binding var isSheet: Bool
-    var addToListFunc: (String, String) -> Void
-    
-    
-    var body: some View {
-        VStack {
-            Section(header: Text("Enter Product Information")) {
-                TextField("Product Name", text: $name)
-                TextField("Price", text: $priceStr)
-                    .keyboardType(.decimalPad) // Use numeric keyboard for price input
-            }
-            .padding()
-            Button(action: {
-                addToListFunc(name, priceStr)
-                isSheet.toggle()
-                
-            }, label: {
-                Image(systemName: "checkmark.square")
-            })
-            .applyGradientBackgroundStyle()
-            
-        }
-        
-    }
-}
 
 
 
