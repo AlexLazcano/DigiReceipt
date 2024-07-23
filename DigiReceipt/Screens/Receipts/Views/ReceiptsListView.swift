@@ -104,6 +104,7 @@ struct ReceiptsListView: View {
                 Text("\(receipt.vendor)")
                     .matchedGeometryEffect(id: "\(receipt)-Vendor", in: receiptAnim)
                     .font(.title2)
+                    .bold()
                     
                 Spacer()
                 Text("\(format_currency(amount: receipt.totalAmount))")

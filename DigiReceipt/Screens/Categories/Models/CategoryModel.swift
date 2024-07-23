@@ -7,13 +7,24 @@
 
 import Foundation
 
-struct CategoryModel: Identifiable {
-    var id: UUID = UUID()
+struct CategoryModel: Identifiable, Codable {
+    var categoryId: UUID = UUID()
     var name: String
     var averagePerMonth: Double
     var budgetPerMonth: Double?
     var budgetSpent: Double
     var budgetRemaining: Double
+    var categoryColor: CategoryColor
+    var id: UUID { categoryId }
+   
+    enum CategoryColor: String, Codable {
+        case red
+        case blue
+        case green
+        case yellow
+        case orange
+        case none
+    }
     
     
     init(name: String, averagePerMonth: Double, budgetPerMonth: Double, currentTotalMonth: Double) {
@@ -22,6 +33,7 @@ struct CategoryModel: Identifiable {
         self.budgetPerMonth = budgetPerMonth
         self.budgetSpent = currentTotalMonth
         self.budgetRemaining = budgetPerMonth - currentTotalMonth
+        self.categoryColor = CategoryColor.none
     }
 }
 
