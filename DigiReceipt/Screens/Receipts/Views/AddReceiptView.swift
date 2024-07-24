@@ -78,7 +78,7 @@ struct AddReceiptView: View {
                     let receipt = ReceiptModel(
                         vendor: receiptVM.vendor,
                         paymentMethod: receiptVM.paymentMethod,
-                        categoryId: receiptVM.categoryId, 
+                        category: receiptVM.category,
                         totalAmount: receiptVM.totalAmount
                     )
                     

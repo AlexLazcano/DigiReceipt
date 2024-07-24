@@ -32,7 +32,7 @@ import Observation
         let receipts = (1...10).map { index in
             
             
-            return ReceiptModel(vendor: "Vendor \(index)", paymentMethod: "Visa", categoryId: "Food", totalAmount: 0.0)
+            return ReceiptModel(vendor: "Vendor \(index)", paymentMethod: "Visa", totalAmount: 0.0)
         }
         let receiptsCollections = [CollectionModel(collection_name: "July 2024", receipts: receipts), CollectionModel(collection_name: "August 2024", receipts: receipts)]
         

@@ -93,9 +93,9 @@ import Observation
     func loadFakeData() {
         
         let receipts = (1...10).map { index in
+            let category = CategoryModel(name: "Food", categoryId: 1)
             
-            
-            return ReceiptModel(vendor: "Vendor \(index)", paymentMethod: "Visa", categoryId: "Food", totalAmount: 0)
+            return ReceiptModel(vendor: "Vendor \(index)", paymentMethod: "Visa", category: category, totalAmount: 0)
         }
         
         self.receipts = receipts

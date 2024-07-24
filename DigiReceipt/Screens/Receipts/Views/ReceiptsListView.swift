@@ -120,13 +120,16 @@ struct ReceiptsListView: View {
                     .foregroundColor(.gray)
                 Spacer()
               
-                Text("\("Food")")
-                    .font(.subheadline)
-                    .bold()
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .foregroundStyle(.thickMaterial)
-                    .background(.red.gradient, in: RoundedRectangle(cornerRadius: 10))
+                
+                if let category = receipt.category {
+                    Text("\(category.name)")
+                        .font(.subheadline)
+                        .bold()
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .foregroundStyle(.thickMaterial)
+                        .background(.red.gradient, in: RoundedRectangle(cornerRadius: 10))
+                }
                     
             }
             .padding(.bottom, 5)

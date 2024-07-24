@@ -82,9 +82,9 @@ struct ReceiptDetailView: View {
                         .bold()
                         .font(.callout)
                     Spacer()
-                    if let category = receipt.categoryId {
+                    if let category = receipt.category {
                         
-                        Text(category)
+                        Text(category.name)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
                             .font(.title3)
@@ -111,7 +111,7 @@ struct ReceiptDetailView: View {
 #Preview {
     @Namespace var ns
     let userID = UUID()
-    let exampleReceipt = ReceiptModel(vendor: "Ikea", paymentMethod: "Visa", categoryId: "Home 🏡", totalAmount: 0)
+    let exampleReceipt = ReceiptModel(vendor: "Ikea", paymentMethod: "Visa", totalAmount: 0)
     return ReceiptDetailView(receipt: exampleReceipt, namespace: ns, onClose: {} )
     
 }

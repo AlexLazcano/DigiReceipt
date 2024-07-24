@@ -95,7 +95,7 @@ struct CategoryView: View {
     var body: some View {
         
         
-        let percentValue = category.budgetRemaining / (category.budgetPerMonth ?? 1)
+        let percentValue = 0 / 1
         //        let percent = format_percent(amount: percentValue)
         return VStack(alignment: .leading) {
             Text("\(category.name)")
@@ -103,9 +103,9 @@ struct CategoryView: View {
             
             Text("This Month: ")
                 .font(.footnote )
-            Text("Avg: \(format_currency(amount: category.averagePerMonth))")
+            Text("Avg: \(format_currency(amount: 0))")
                 .font(.subheadline)
-            Text("Budget: \(format_currency(amount: category.budgetPerMonth ?? 0))")
+            Text("Budget: \(format_currency(amount: 0))")
                 .font(.headline)
             //            ZStack  {
             //                Chart {
@@ -132,22 +132,22 @@ struct CategoryView: View {
             //
             //            }
             
-            if let _ = category.budgetPerMonth {
-                GeometryReader { geo in
-                    HStack(spacing: 0) {
-                        Rectangle()
-                            .fill(BudgetColor.color(forLevel: 1 - percentValue).color.gradient)
-                            .frame(width: geo.size.width * (1 - (percentValue)) , height: 10) // Adjusted width
-                            
-                        Rectangle()
-                            
-                            .fill(Color.gray.gradient)
-                            .frame(width: geo.size.width * (percentValue), height: 10) // Adjusted width
-                            
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                }
-            }
+//            if let _ = category.budgetPerMonth {
+//                GeometryReader { geo in
+//                    HStack(spacing: 0) {
+//                        Rectangle()
+//                            .fill(BudgetColor.color(forLevel: 1 - percentValue).color.gradient)
+//                            .frame(width: geo.size.width * (1 - (percentValue)) , height: 10) // Adjusted width
+//                            
+//                        Rectangle()
+//                            
+//                            .fill(Color.gray.gradient)
+//                            .frame(width: geo.size.width * (percentValue), height: 10) // Adjusted width
+//                            
+//                    }
+//                    .clipShape(RoundedRectangle(cornerRadius: 10))
+//                }
+//            }
             
             HStack {
                 Text("Remaining")

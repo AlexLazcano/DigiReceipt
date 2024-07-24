@@ -21,10 +21,9 @@ struct ReceiptModel: Identifiable, Hashable, Codable {
     var receiptId = UUID()
     var vendor: String
     var date: Date = .now
-//    var products: [ProductModel]
     var totalAmount: Double = 0.0
     var paymentMethod: String
-    var categoryId: String? = nil
+    var category: CategoryModel?
     var userId: UUID? = nil
     
     var id: UUID { receiptId }
@@ -34,8 +33,7 @@ struct ReceiptModel: Identifiable, Hashable, Codable {
         case vendor
         case date
         case paymentMethod
-//        case products
-        case categoryId
+        case category
         case userId
         case totalAmount
     }
@@ -65,7 +63,7 @@ struct ReceiptModel: Identifiable, Hashable, Codable {
             
 //            products = try container.decode([ProductModel].self, forKey: .products)
             paymentMethod = try container.decode(String.self, forKey: .paymentMethod)
-            categoryId = try container.decodeIfPresent(String.self, forKey: .categoryId)
+            category = try container.decodeIfPresent(CategoryModel.self, forKey: .category)
             userId = try container.decodeIfPresent(UUID.self, forKey: .userId)
 //            totalAmount = products.reduce(0) { $0 + $1.price }
             totalAmount = try container.decode(Double.self, forKey: .totalAmount)
@@ -75,11 +73,11 @@ struct ReceiptModel: Identifiable, Hashable, Codable {
     
     
     
-    init(vendor: String, paymentMethod: String,  categoryId: String? = nil, totalAmount: Double){
+    init(vendor: String, paymentMethod: String,  category: CategoryModel? = nil, totalAmount: Double){
         
         self.vendor = vendor
         self.paymentMethod = paymentMethod
-        self.categoryId = categoryId
+        self.category = category
         self.totalAmount = totalAmount
     }
     

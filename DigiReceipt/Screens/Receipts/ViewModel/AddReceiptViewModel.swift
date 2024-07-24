@@ -14,7 +14,7 @@ import Observation
     var date: Date = .now
     var totalAmount: Double
     var paymentMethod: String
-    var categoryId: String? = nil
+    var category: CategoryModel? = nil
     
     init() {
         self.vendor = ""
@@ -29,7 +29,7 @@ import Observation
         self.date = date
         self.totalAmount = totalAmount
         self.paymentMethod = paymentMethod
-        self.categoryId = categoryId
+        self.category = category
     }
     
     
